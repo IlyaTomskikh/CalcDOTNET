@@ -88,7 +88,7 @@ internal class TokenParser
                 default:
                     _unary = false;
                     if (!char.IsNumber(_expression[_position]))
-                        throw new ArgumentException($"Symbol {_expression[_position]} is not supported");
+                        throw new ArgumentException($"Symbol <{_expression[_position]}> is not supported");
                     if (_prev) throw new InvalidOperationException("Invalid operation");
                     _prev = true;
                     startIndex = _position;

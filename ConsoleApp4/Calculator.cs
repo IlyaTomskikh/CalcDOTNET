@@ -18,7 +18,7 @@ public static class Calculator
 
             //we must have at least 2 numbers straight
             if (token is not Operator curOp)
-                throw new Exception($"Operator {token} is not supported");
+                throw new Exception($"Operator <{token}> is not supported");
 
             switch (curOp.Value)
             {
