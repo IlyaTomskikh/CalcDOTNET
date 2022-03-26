@@ -17,8 +17,8 @@ public static class Calculator
             }
 
             //we must have at least 2 numbers straight
-            if (token is not Operation curOp)
-                throw new Exception($"Operation {token} is not supported");
+            if (token is not Operator curOp)
+                throw new Exception($"Operator {token} is not supported");
 
             switch (curOp.Value)
             {
@@ -33,7 +33,7 @@ public static class Calculator
                         if (!operators.TryPeek(out var topToken))
                             throw new InvalidOperationException("Incorrect input");
                         //if we found one remove both from the stack
-                        if (topToken is Operation {Value: "("})
+                        if (topToken is Operator {Value: "("})
                         {
                             operators.Pop();
                             break;
@@ -49,7 +49,7 @@ public static class Calculator
             while (operators.Count > 0)
             {
                 if (!operators.TryPeek(out var topToken)) break;
-                if (topToken is not Operation topOp) continue;
+                if (topToken is not Operator topOp) continue;
                 if (string.Equals(topOp.Value, "(", StringComparison.Ordinal)) break;
                 if (curOp.Priority < topOp.Priority ||
                     curOp.Priority.Equals(topOp.Priority) &&
@@ -69,7 +69,7 @@ public static class Calculator
         {
             var topToken = operators.Pop();
             //If the token is a bracket, than there are unclosed brackets somewhere
-            if (topToken is Operation {Value: ")" or "("})
+            if (topToken is Operator {Value: ")" or "("})
                 throw new InvalidOperationException("Mismatched brackets");
             output.Enqueue(topToken);
         }
@@ -90,7 +90,7 @@ public static class Calculator
                 case Number number:
                     numbers.Push(number.Value);
                     continue;
-                case Operation op:
+                case Operator op:
                 {
                     double left;
                     double right;

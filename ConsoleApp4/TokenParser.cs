@@ -23,7 +23,7 @@ internal class TokenParser
         return _position < _expression.Length;
     }
 
-    public IToken? IsNextToken()
+    public IToken IsNextToken()
     {
         while (_position < _expression.Length)
             switch (_expression[_position])
@@ -31,42 +31,42 @@ internal class TokenParser
                 case '+':
                     _prev = false;
                     ++_position;
-                    if (_unary) return new Operation("+u", 3, "right");
+                    if (_unary) return new Operator("+u", 3, "right");
                     _unary = true;
-                    return new Operation("+", 1);
+                    return new Operator("+", 1);
                 
                 case '-':
                     _prev = false;
                     ++_position;
 
                     //unary minus:
-                    if (_unary) return new Operation("-u", 3, "right");
+                    if (_unary) return new Operator("-u", 3, "right");
                     _unary = true;
-                    return new Operation("-", 1);
+                    return new Operator("-", 1);
 
                 case '*':
                     _prev = false;
                     _unary = true;
                     ++_position;
-                    return new Operation("*", 2);
+                    return new Operator("*", 2);
 
                 case '/':
                     _prev = false;
                     _unary = true;
                     ++_position;
-                    return new Operation("/", 2);
+                    return new Operator("/", 2);
 
                 case '(':
                     _prev = false;
                     _unary = true;
                     ++_position;
-                    return new Operation("(", 4);
+                    return new Operator("(", 4);
 
                 case ')':
                     _prev = false;
                     _unary = false;
                     ++_position;
-                    return new Operation(")", 4);
+                    return new Operator(")", 4);
 
                 case ' ':
                     ++_position;

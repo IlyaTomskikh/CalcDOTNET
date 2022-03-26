@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp4;
 
-internal class Operation: IToken
+internal class Operator: IToken
 {
     public string Value { get; }
     public int Priority { get; }
@@ -9,7 +9,7 @@ internal class Operation: IToken
 
     public override string ToString() => Value;
 
-    public Operation(string op, int priority, string associativity = "left")
+    public Operator(string op, int priority, string associativity = "left")
     {
         Value = op;
         Priority = priority;
